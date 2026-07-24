@@ -74,7 +74,7 @@ PDFStudio is a high-fidelity cross-platform Ionic/Angular application designed t
 
 ## 🛠️ Tech Stack
 
-*   **Framework**: Ionic 8 & Angular 19 (Standalone Components)
+*   **Framework**: Ionic 8 & Angular 20 (Standalone Components)
 *   **Language**: TypeScript, HTML5, SCSS
 *   **Native Engine**: Capacitor 8 (with iOS and Android platforms)
 *   **Plugins**:
