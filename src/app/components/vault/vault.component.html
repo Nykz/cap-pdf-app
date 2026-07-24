@@ -1,0 +1,125 @@
+<ion-grid class="ion-no-padding vault-container">
+  <!-- Vault Banner Card -->
+  <ion-card class="ion-no-margin ion-margin-bottom vault-header-card">
+    <ion-card-content>
+      <ion-item lines="none" class="ion-no-padding header-item">
+        <ion-icon name="wallet-outline" slot="start" class="vault-header-icon"></ion-icon>
+        <ion-label class="ion-no-margin">
+          <ion-text color="light"><h2 class="ion-no-margin vault-title">PDF Document Vault</h2></ion-text>
+          <ion-text color="medium"><p class="ion-no-margin vault-subtitle">Access, view natively, or share generated documents.</p></ion-text>
+        </ion-label>
+        <ion-chip slot="end" class="count-chip">
+          <ion-label>{{ records().length }} Documents</ion-label>
+        </ion-chip>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Searchbar -->
+  <ion-item lines="none" class="ion-no-padding ion-margin-bottom search-item">
+    <ion-searchbar
+      [value]="searchTerm()"
+      (ionInput)="onSearchChange($event)"
+      placeholder="Search documents by client, title or file..."
+      mode="ios"
+      class="vault-searchbar"
+    ></ion-searchbar>
+  </ion-item>
+
+  <!-- Category Filter Chips -->
+  <ion-row class="ion-margin-bottom filter-chips-row">
+    <ion-col size="12" class="scroll-chips-col">
+      @for (cat of filterCategories; track cat.value) {
+        <ion-chip
+          [class.active-chip]="selectedCategory() === cat.value"
+          (click)="setCategoryFilter(cat.value)"
+          class="filter-chip"
+        >
+          <ion-icon [name]="cat.icon"></ion-icon>
+          <ion-label>{{ cat.label }}</ion-label>
+        </ion-chip>
+      }
+    </ion-col>
+  </ion-row>
+
+  <!-- Records List -->
+  @if (records().length === 0) {
+    <ion-card class="ion-no-margin empty-card ion-text-center">
+      <ion-card-content>
+        <ion-icon name="document-text-outline" class="empty-icon"></ion-icon>
+        <ion-text color="light"><h3 class="empty-title">No Documents in Vault</h3></ion-text>
+        <ion-text color="medium"><p class="empty-subtitle">Generate your first document from the Creator Studio builder.</p></ion-text>
+        <ion-button expand="block" class="create-btn ion-margin-top" (click)="triggerCreateNew()">
+          <ion-icon name="add-outline" slot="start"></ion-icon> Create New Document
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  } @else if (filteredRecords().length === 0) {
+    <ion-card class="ion-no-margin empty-card ion-text-center">
+      <ion-card-content>
+        <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+        <ion-text color="light"><h3 class="empty-title">No Matching Documents</h3></ion-text>
+        <ion-text color="medium"><p class="empty-subtitle">Try adjusting your search or category filter.</p></ion-text>
+      </ion-card-content>
+    </ion-card>
+  } @else {
+    <ion-grid class="ion-no-padding">
+      @for (doc of filteredRecords(); track doc.id) {
+        <ion-card class="ion-no-margin ion-margin-bottom doc-record-card" [class]="doc.templateType">
+          <ion-card-content>
+            <!-- Header Row: Icon + Title/Client + Amount Badge -->
+            <ion-item lines="none" class="ion-no-padding doc-header-item">
+              <ion-icon [name]="getTemplateIcon(doc.templateType)" slot="start" class="doc-type-icon"></ion-icon>
+
+              <ion-label class="doc-label ion-no-margin">
+                <ion-text color="light"><h3 class="ion-no-margin doc-title">{{ doc.title }}</h3></ion-text>
+                <ion-text color="medium">
+                  <p class="ion-no-margin doc-meta">
+                    {{ doc.clientName }} • {{ doc.createdAt | date:'shortDate' }}
+                  </p>
+                </ion-text>
+              </ion-label>
+
+              @if (doc.templateType !== 'url') {
+                <ion-badge slot="end" color="success" class="amount-badge">
+                  {{ formatCurrency(doc.totalAmount, doc.currencySymbol) }}
+                </ion-badge>
+              } @else {
+                <ion-badge slot="end" class="url-snapshot-badge">
+                  SNAPSHOT
+                </ion-badge>
+              }
+            </ion-item>
+
+            <!-- Metadata Chips Row -->
+            <ion-item lines="none" class="ion-no-padding doc-tags-item ion-margin-top ion-margin-bottom">
+              <ion-badge class="template-type-badge ion-margin-end">{{ doc.templateType | uppercase }}</ion-badge>
+              <ion-badge class="page-meta-badge ion-margin-end">{{ doc.pageSize }} • {{ doc.orientation }}</ion-badge>
+
+              <ion-chip class="platform-chip" slot="end">
+                <ion-icon name="phone-portrait-outline"></ion-icon>
+                <ion-label>{{ !doc.isWebFallback ? 'Capacitor Native' : 'Web Preview' }}</ion-label>
+              </ion-chip>
+            </ion-item>
+
+            <!-- Actions Row -->
+            <ion-row class="ion-align-items-center ion-justify-content-between action-row">
+              <ion-col size="10">
+                <ion-button expand="block" fill="clear" class="view-pdf-btn" (click)="viewPdf(doc)">
+                  <ion-icon name="eye-outline" slot="start"></ion-icon>
+                  <ion-label>View in PDF Viewer</ion-label>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="2" class="ion-text-right">
+                <ion-button fill="clear" color="danger" class="delete-doc-btn" (click)="deleteDoc(doc)">
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      }
+    </ion-grid>
+  }
+</ion-grid>

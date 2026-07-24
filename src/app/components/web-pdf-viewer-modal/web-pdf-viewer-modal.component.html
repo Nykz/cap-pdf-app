@@ -1,0 +1,83 @@
+<ion-header class="ion-no-border modal-header">
+  <ion-toolbar class="mac-toolbar">
+    <div class="mac-stage-bar">
+      <!-- Traffic Dots -->
+      <div class="traffic-dots">
+        <span class="dot dot-close" (click)="dismiss()"></span>
+        <span class="dot dot-minimize"></span>
+        <span class="dot dot-expand"></span>
+      </div>
+
+      <!-- URL Chip -->
+      <div class="url-chip">
+        <ion-icon name="eye-outline"></ion-icon>
+        <span class="url-text">viewer://pdf-vault/{{ documentTitle }}</span>
+      </div>
+
+      <!-- PDF Badge -->
+      <div class="ready-badge-wrapper">
+        <ion-badge color="success" class="ready-badge">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>{{ isUrlSnapshot ? 'WEB SNAPSHOT' : 'PDF RENDERED' }}</span>
+        </ion-badge>
+      </div>
+
+      <ion-buttons slot="end">
+        <ion-button fill="clear" (click)="dismiss()" class="close-btn">
+          <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <div class="iframe-container">
+    @if (isUrlSnapshot) {
+      <div class="url-snapshot-frame">
+        <div class="snapshot-header">
+          <ion-icon name="eye-outline" class="snapshot-icon"></ion-icon>
+          <h2>Web Preview Sandbox</h2>
+          <p>Browsers restrict loading complete interactive websites inside frame portals. For full performance, open the snapshot directly or run on native platforms.</p>
+          <div class="snapshot-actions">
+            <ion-button fill="solid" color="primary" (click)="openInNewTab()">
+              <ion-icon name="open-outline" slot="start"></ion-icon>
+              Open Live Webpage
+            </ion-button>
+          </div>
+        </div>
+        <iframe
+          [src]="safeUrl"
+          [title]="documentTitle"
+          class="preview-iframe"
+        ></iframe>
+      </div>
+    } @else if (htmlContent) {
+      <iframe
+        [srcdoc]="sanitizedHtml"
+        [title]="documentTitle"
+        class="preview-iframe"
+      ></iframe>
+    } @else {
+      <iframe
+        [src]="safeUrl"
+        [title]="documentTitle"
+        class="preview-iframe"
+      ></iframe>
+    }
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border modal-footer">
+  <ion-toolbar class="footer-toolbar">
+    <div class="footer-action-bar">
+      <ion-button fill="outline" class="modal-cancel-btn" (click)="dismiss()">
+        Close
+      </ion-button>
+      <ion-button class="modal-action-btn" (click)="openInNewTab()">
+        <ion-icon name="open-outline" slot="start"></ion-icon>
+        Open in New Tab
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

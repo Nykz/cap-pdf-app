@@ -1,0 +1,82 @@
+ion-content {
+  --background: var(--app-bg-primary);
+  color: var(--app-text-primary);
+}
+
+ion-grid {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.segment-row {
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.segment-bar {
+  --background: #090e1a;
+  --border-radius: 12px;
+  border: 1px solid #1e2c48;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  padding: 3px;
+  min-height: 40px;
+
+  ion-segment-button {
+    --color: #94a3b8;
+    --color-checked: #ffffff;
+    --indicator-color: #5850ec;
+    --border-radius: 10px;
+    --padding-start: 4px;
+    --padding-end: 4px;
+    font-weight: 700;
+    font-size: 12px;
+    min-height: 36px;
+    height: 36px;
+
+    &::part(indicator-background) {
+      background: #5850ec;
+      border-radius: 10px;
+      box-shadow: 0 0 14px rgba(88, 80, 236, 0.4);
+    }
+
+    .segment-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1px;
+      color: inherit;
+    }
+
+    ion-icon {
+      font-size: 15px;
+    }
+
+    .vault-badge {
+      font-size: 9px;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      --background: #7c3aed;
+      --color: #ffffff;
+    }
+  }
+
+  @media (max-width: 480px) {
+    ion-segment-button {
+      font-size: 11px;
+      --padding-start: 2px;
+      --padding-end: 2px;
+
+      .segment-label {
+        font-size: 11px;
+        gap: 2px;
+      }
+
+      ion-icon {
+        font-size: 13px;
+      }
+    }
+  }
+}

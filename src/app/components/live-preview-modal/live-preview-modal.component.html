@@ -1,0 +1,56 @@
+<ion-header class="ion-no-border modal-header">
+  <ion-toolbar class="mac-toolbar">
+    <div class="mac-stage-bar">
+      <!-- Traffic Dots -->
+      <div class="traffic-dots">
+        <span class="dot dot-close" (click)="dismiss('cancel')"></span>
+        <span class="dot dot-minimize"></span>
+        <span class="dot dot-expand"></span>
+      </div>
+
+      <!-- URL Chip -->
+      <div class="url-chip">
+        <ion-icon name="eye-outline"></ion-icon>
+        <span class="url-text">preview://studio.capawesome/{{ docTitle }}</span>
+      </div>
+
+      <!-- PDF Ready Badge -->
+      <div class="ready-badge-wrapper">
+        <ion-badge color="success" class="ready-badge">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          <span>PDF READY</span>
+        </ion-badge>
+      </div>
+
+      <ion-buttons slot="end">
+        <ion-button fill="clear" (click)="dismiss('cancel')" class="close-btn">
+          <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <div class="iframe-container">
+    <iframe
+      [srcdoc]="sanitizedHtml"
+      title="Live Document Preview"
+      class="preview-iframe"
+    ></iframe>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border modal-footer">
+  <ion-toolbar class="footer-toolbar">
+    <div class="footer-action-bar">
+      <ion-button fill="outline" class="modal-cancel-btn" (click)="dismiss('cancel')">
+        Close
+      </ion-button>
+      <ion-button class="modal-generate-btn" (click)="dismiss('generate')">
+        <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+        Generate PDF Document
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

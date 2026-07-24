@@ -68,3 +68,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Custom Ignores
+/universal-ionic-angular-skills/
+/master_prompt.md
+/setup_commands.md

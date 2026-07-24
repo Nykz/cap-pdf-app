@@ -1,0 +1,22 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-row class="ion-align-items-center ion-justify-content-between ion-no-padding">
+      <ion-col size="auto" class="brand-col">
+        <ion-row class="ion-align-items-center ion-no-padding">
+          <ion-icon name="document-text" class="header-logo-icon"></ion-icon>
+          <ion-label class="brand-text-group">
+            <ion-text color="light"><h2 class="brand-heading">PDF<ion-text color="primary">Studio</ion-text></h2></ion-text>
+            <ion-text color="medium"><p class="brand-sub">Capawesome PDF Suite</p></ion-text>
+          </ion-label>
+        </ion-row>
+      </ion-col>
+
+      <ion-col size="auto">
+        <ion-chip class="platform-chip">
+          <ion-icon [name]="isNative ? 'phone-portrait-outline' : 'globe-outline'"></ion-icon>
+          <ion-label>{{ isNative ? 'Capacitor Native' : 'Web Engine' }}</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>

@@ -1,2 +1,58 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+/**
+ * Ionic & App Design Tokens
+ * Capawesome PDF Studio - Ultra Premium Dark Theme
+ */
+
+:root {
+  /* Core Ionic Color Overrides */
+  --ion-color-primary: #6366f1;
+  --ion-color-primary-rgb: 99, 102, 241;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #4f46e5;
+  --ion-color-primary-tint: #818cf8;
+
+  --ion-color-secondary: #06b6d4;
+  --ion-color-secondary-rgb: 6, 182, 212;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-shade: #0891b2;
+  --ion-color-secondary-tint: #22d3ee;
+
+  --ion-color-success: #10b981;
+  --ion-color-success-rgb: 16, 185, 129;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-shade: #059669;
+  --ion-color-success-tint: #34d399;
+
+  --ion-color-warning: #f59e0b;
+  --ion-color-warning-rgb: 245, 158, 11;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-shade: #d97706;
+  --ion-color-warning-tint: #fbbf24;
+
+  --ion-color-danger: #f43f5e;
+  --ion-color-danger-rgb: 244, 63, 94;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-shade: #e11d48;
+  --ion-color-danger-tint: #fb7185;
+
+  /* Reference Image Color Tokens */
+  --app-bg-primary: #070b14;
+  --app-bg-surface: #0e1626;
+  --app-card-bg: #121c2e;
+  --app-card-bg-elevated: #1a2842;
+  --app-input-bg: #0b1220;
+
+  --app-border-color: #1e2c48;
+  --app-border-glow: #6366f1;
+
+  --app-text-primary: #ffffff;
+  --app-text-secondary: #94a3b8;
+  --app-text-muted: #64748b;
+
+  --app-violet-primary: #6366f1;
+  --app-violet-light: #818cf8;
+  --app-emerald-success: #10b981;
+
+  --app-gradient-violet: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --app-gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}

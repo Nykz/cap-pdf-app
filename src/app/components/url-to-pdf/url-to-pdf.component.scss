@@ -1,0 +1,140 @@
+.section-header-item {
+  --background: transparent;
+  --inner-padding-end: 0;
+
+  .section-header-icon {
+    font-size: 20px;
+    color: #818cf8;
+    margin-right: 8px;
+  }
+
+  .section-header-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #818cf8;
+    letter-spacing: -0.3px;
+    margin: 0;
+  }
+}
+
+.form-card {
+  --background: #0d1526;
+  --border-radius: 16px;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --border-color: #1e2c48;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+
+  .card-header-item {
+    --background: transparent;
+    --border-color: #1e2c48;
+
+    .header-icon {
+      font-size: 18px;
+      color: #818cf8;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+  }
+
+  .form-card-body {
+    padding: 12px;
+
+    ion-col {
+      padding: 4px;
+    }
+  }
+}
+
+.input-card-box {
+  --background: #080d19;
+  --border-color: #1e2c48;
+  --border-radius: 12px;
+  --border-width: 1px;
+  --border-style: solid;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --inner-padding-end: 0;
+  height: 60px;
+  margin: 0;
+
+  .custom-stacked-input {
+    --color: #ffffff;
+    --placeholder-color: #64748b;
+    --placeholder-opacity: 0.8;
+    font-size: 14px;
+    font-weight: 700;
+
+    &::part(label) {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.row-card-box {
+  --background: #080d19;
+  --border-color: #1e2c48;
+  --border-radius: 12px;
+  --border-width: 1px;
+  --border-style: solid;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --inner-padding-end: 0;
+  height: 48px;
+  margin: 0;
+
+  .fixed-row-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #94a3b8;
+  }
+
+  .fixed-row-select {
+    --color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .fixed-row-input {
+    --color: #ffffff;
+    --text-align: right;
+    font-size: 14px;
+    font-weight: 700;
+    max-width: 100px;
+
+    &::part(native) {
+      text-align: right !important;
+    }
+  }
+}
+
+.action-buttons-row {
+  ion-col {
+    padding: 4px;
+  }
+}
+
+.generate-solid-emerald-btn {
+  --background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --color: #ffffff;
+  --border-radius: 12px;
+  font-weight: 800;
+  height: 48px;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 20px;
+    color: #ffffff;
+  }
+}

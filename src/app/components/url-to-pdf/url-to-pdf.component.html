@@ -1,0 +1,125 @@
+<form (submit)="$event.preventDefault()" class="ion-margin-top">
+  <!-- Section Header -->
+  <ion-item lines="none" class="ion-no-padding ion-margin-bottom section-header-item">
+    <ion-icon name="globe-outline" slot="start" class="section-header-icon"></ion-icon>
+    <ion-label class="ion-no-margin">
+      <ion-text color="primary"><h3 class="ion-no-margin section-header-title">Convert Web URL to PDF</h3></ion-text>
+    </ion-label>
+  </ion-item>
+
+  <!-- URL Details Card -->
+  <ion-card class="ion-no-margin ion-margin-bottom form-card">
+    <ion-item lines="full" class="card-header-item">
+      <ion-icon name="link-outline" slot="start" class="header-icon"></ion-icon>
+      <ion-label class="font-bold card-title">Target Webpage & Output File</ion-label>
+    </ion-item>
+
+    <ion-card-content class="form-card-body">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="12">
+            <ion-item lines="none" class="input-card-box ion-margin-bottom">
+              <ion-input
+                label="Target URL"
+                labelPlacement="stacked"
+                [value]="url()"
+                (ionInput)="url.set($any($event).target.value)"
+                placeholder="https://example.com"
+                class="custom-stacked-input"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="none" class="input-card-box">
+              <ion-input
+                label="Document Title"
+                labelPlacement="stacked"
+                [value]="title()"
+                (ionInput)="title.set($any($event).target.value)"
+                placeholder="e.g. Capawesome Documentation"
+                class="custom-stacked-input"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-item lines="none" class="input-card-box">
+              <ion-input
+                label="Output PDF Filename"
+                labelPlacement="stacked"
+                [value]="fileName()"
+                (ionInput)="fileName.set($any($event).target.value)"
+                placeholder="e.g. web-snapshot.pdf"
+                class="custom-stacked-input"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Page Setup Card -->
+  <ion-card class="ion-no-margin ion-margin-bottom form-card">
+    <ion-item lines="full" class="card-header-item">
+      <ion-icon name="document-outline" slot="start" class="header-icon"></ion-icon>
+      <ion-label class="font-bold card-title">Document Page Setup</ion-label>
+    </ion-item>
+
+    <ion-card-content class="form-card-body">
+      <ion-item lines="none" class="row-card-box ion-margin-bottom">
+        <ion-label slot="start" class="fixed-row-label">Orientation</ion-label>
+        <ion-select
+          slot="end"
+          [value]="orientation()"
+          (ionChange)="orientation.set($any($event).detail.value)"
+          interface="popover"
+          class="fixed-row-select"
+        >
+          @for (opt of orientationOptions; track opt.value) {
+            <ion-select-option [value]="opt.value">{{ opt.label }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="row-card-box ion-margin-bottom">
+        <ion-label slot="start" class="fixed-row-label">Page Size</ion-label>
+        <ion-select
+          slot="end"
+          [value]="pageSize()"
+          (ionChange)="pageSize.set($any($event).detail.value)"
+          interface="popover"
+          class="fixed-row-select"
+        >
+          @for (opt of pageSizeOptions; track opt.value) {
+            <ion-select-option [value]="opt.value">{{ opt.label }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="row-card-box">
+        <ion-label slot="start" class="fixed-row-label">Timeout (ms)</ion-label>
+        <ion-input
+          slot="end"
+          type="number"
+          [value]="timeout()"
+          (ionInput)="timeout.set($any($event).target.value ? +$any($event).target.value : 30000)"
+          class="fixed-row-input"
+        ></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Generate Button Row -->
+  <ion-row class="action-buttons-row ion-margin-top ion-margin-bottom ion-align-items-center">
+    <ion-col size="12">
+      <ion-button expand="block" class="generate-solid-emerald-btn" [disabled]="!url()" (click)="onGenerate()">
+        <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+        <ion-label>Generate PDF from URL</ion-label>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</form>

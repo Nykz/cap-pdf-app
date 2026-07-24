@@ -1,0 +1,282 @@
+<form (submit)="$event.preventDefault()" class="ion-margin-top">
+  <!-- Section Header -->
+  <ion-item lines="none" class="ion-no-padding ion-margin-bottom section-header-item">
+    <ion-icon name="options-outline" slot="start" class="section-header-icon"></ion-icon>
+    <ion-label class="ion-no-margin">
+      <ion-text color="primary"><h3 class="ion-no-margin section-header-title">Customize Document Details</h3></ion-text>
+    </ion-label>
+  </ion-item>
+
+  <!-- Company & Recipient Card -->
+  <ion-card class="ion-no-margin ion-margin-bottom form-card">
+    <ion-item lines="full" class="card-header-item">
+      <ion-icon name="business-outline" slot="start" class="header-icon"></ion-icon>
+      <ion-label class="font-bold card-title">Company & Recipient</ion-label>
+    </ion-item>
+
+    <ion-card-content class="form-card-body">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="none" class="input-card-box">
+              <ion-input
+                label="Your Company"
+                labelPlacement="stacked"
+                [value]="companyName()"
+                (ionInput)="companyName.set($any($event).target.value)"
+                placeholder="Capawesome Digital Inc."
+                class="custom-stacked-input"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-item lines="none" class="input-card-box">
+              <ion-input
+                label="Client Name"
+                labelPlacement="stacked"
+                [value]="clientName()"
+                (ionInput)="clientName.set($any($event).target.value)"
+                placeholder="Acme Corporation"
+                class="custom-stacked-input"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-item lines="none" class="input-card-box">
+              <ion-input
+                label="Document Title"
+                labelPlacement="stacked"
+                [value]="title()"
+                (ionInput)="title.set($any($event).target.value)"
+                placeholder="Mobile Application Development"
+                class="custom-stacked-input"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="6">
+            <ion-item lines="none" class="input-card-box">
+              <ion-input
+                label="Invoice Ref #"
+                labelPlacement="stacked"
+                [value]="invoiceNumber()"
+                (ionInput)="invoiceNumber.set($any($event).target.value)"
+                placeholder="INV-2026-904"
+                class="custom-stacked-input"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Line Items & Services Card -->
+  <ion-card class="ion-no-margin ion-margin-bottom form-card">
+    <ion-item lines="full" class="card-header-item">
+      <ion-icon name="calculator-outline" slot="start" class="header-icon"></ion-icon>
+      <ion-label class="font-bold card-title">Line Items & Services</ion-label>
+      <ion-button fill="clear" slot="end" size="small" class="add-item-link" (click)="addItem()">
+        <ion-icon name="add-outline" slot="start"></ion-icon> Add Item
+      </ion-button>
+    </ion-item>
+
+    <ion-card-content class="form-card-body">
+      @for (item of items(); track item.id; let idx = $index) {
+        <ion-item lines="none" class="deliverable-item ion-margin-bottom">
+          <ion-grid class="ion-no-padding">
+            <ion-row class="ion-margin-bottom">
+              <ion-col size="12">
+                <ion-input
+                  [value]="item.description"
+                  (ionInput)="updateItemDescription(item.id, $any($event).target.value)"
+                  placeholder="Service / Item Description"
+                  class="desc-input"
+                ></ion-input>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-align-items-center ion-justify-content-between">
+              <ion-col size="auto">
+                <ion-badge class="index-badge">#{{ idx + 1 }}</ion-badge>
+              </ion-col>
+
+              <ion-col size="3">
+                <ion-input
+                  type="number"
+                  [value]="item.quantity"
+                  (ionInput)="updateItemQuantity(item.id, $any($event).target.value)"
+                  placeholder="Qty"
+                  class="qty-input"
+                ></ion-input>
+              </ion-col>
+
+              <ion-col size="3">
+                <ion-input
+                  type="number"
+                  [value]="item.rate"
+                  (ionInput)="updateItemRate(item.id, $any($event).target.value)"
+                  placeholder="Rate"
+                  class="rate-input"
+                ></ion-input>
+              </ion-col>
+
+              <ion-col size="auto">
+                <ion-text color="success">
+                  <strong class="emerald-subtotal">{{ currencySymbol() }}{{ (item.quantity * item.rate).toFixed(2) }}</strong>
+                </ion-text>
+              </ion-col>
+
+              <ion-col size="auto">
+                <ion-button fill="clear" color="danger" size="small" (click)="removeItem(item.id)">
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Output Settings & Computed Totals Grid -->
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-card class="ion-no-margin ion-margin-bottom form-card">
+          <ion-item lines="full" class="card-header-item">
+            <ion-icon name="document-outline" slot="start" class="header-icon"></ion-icon>
+            <ion-label class="font-bold card-title">Document Page Setup</ion-label>
+          </ion-item>
+          <ion-card-content class="form-card-body">
+            <ion-item lines="none" class="row-card-box ion-margin-bottom">
+              <ion-label slot="start" class="fixed-row-label">Orientation</ion-label>
+              <ion-select
+                slot="end"
+                [value]="orientation()"
+                (ionChange)="orientation.set($any($event).detail.value)"
+                interface="popover"
+                class="fixed-row-select"
+              >
+                @for (opt of orientationOptions; track opt.value) {
+                  <ion-select-option [value]="opt.value">{{ opt.label }}</ion-select-option>
+                }
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" class="row-card-box ion-margin-bottom">
+              <ion-label slot="start" class="fixed-row-label">Page Size</ion-label>
+              <ion-select
+                slot="end"
+                [value]="pageSize()"
+                (ionChange)="pageSize.set($any($event).detail.value)"
+                interface="popover"
+                class="fixed-row-select"
+              >
+                @for (opt of pageSizeOptions; track opt.value) {
+                  <ion-select-option [value]="opt.value">{{ opt.label }}</ion-select-option>
+                }
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" class="row-card-box ion-margin-bottom">
+              <ion-label slot="start" class="fixed-row-label">Currency Symbol</ion-label>
+              <ion-input
+                slot="end"
+                [value]="currencySymbol()"
+                (ionInput)="currencySymbol.set($any($event).target.value)"
+                placeholder="$"
+                class="fixed-row-input"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" class="row-card-box">
+              <ion-label slot="start" class="fixed-row-label">Timeout (ms)</ion-label>
+              <ion-input
+                slot="end"
+                type="number"
+                [value]="timeout()"
+                (ionInput)="timeout.set($any($event).target.value ? +$any($event).target.value : 30000)"
+                class="fixed-row-input"
+              ></ion-input>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+        <ion-card class="ion-no-margin ion-margin-bottom form-card totals-card">
+          <ion-item lines="full" class="card-header-item">
+            <ion-icon name="wallet-outline" slot="start" class="header-icon"></ion-icon>
+            <ion-label class="font-bold card-title uppercase-totals">COMPUTED TOTALS</ion-label>
+          </ion-item>
+          <ion-card-content class="totals-body">
+            <ion-item lines="none" class="totals-line-item">
+              <ion-label slot="start" class="row-label">Subtotal</ion-label>
+              <ion-text slot="end" color="light">
+                <strong class="row-val">{{ currencySymbol() }}{{ subtotal().toFixed(2) }}</strong>
+              </ion-text>
+            </ion-item>
+
+            <ion-item lines="none" class="totals-line-item">
+              <ion-label slot="start" class="row-label">Tax (%)</ion-label>
+              <div class="pct-input-wrapper">
+                <ion-input
+                  type="number"
+                  [value]="taxRatePercent()"
+                  (ionInput)="taxRatePercent.set(+$any($event).target.value)"
+                  class="compact-pct-input"
+                ></ion-input>
+              </div>
+              <ion-text slot="end" color="light">
+                <strong class="row-val">+{{ currencySymbol() }}{{ taxAmount().toFixed(2) }}</strong>
+              </ion-text>
+            </ion-item>
+
+            <ion-item lines="none" class="totals-line-item">
+              <ion-label slot="start" class="row-label">Discount (%)</ion-label>
+              <div class="pct-input-wrapper">
+                <ion-input
+                  type="number"
+                  [value]="discountPercent()"
+                  (ionInput)="discountPercent.set(+$any($event).target.value)"
+                  class="compact-pct-input"
+                ></ion-input>
+              </div>
+              <ion-text slot="end" color="light">
+                <strong class="row-val">--{{ currencySymbol() }}{{ discountAmount().toFixed(2) }}</strong>
+              </ion-text>
+            </ion-item>
+
+            <ion-item lines="none" class="totals-line-item grand-total-line">
+              <ion-label slot="start" class="grand-label">Grand Total</ion-label>
+              <ion-text slot="end" color="primary">
+                <strong class="grand-amount">{{ currencySymbol() }}{{ grandTotal().toFixed(2) }}</strong>
+              </ion-text>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Action Bar Buttons -->
+  <ion-row class="action-buttons-row ion-margin-top ion-margin-bottom ion-align-items-center">
+    <ion-col size="6">
+      <ion-button fill="clear" expand="block" class="preview-glowing-btn" (click)="onPreview()">
+        <ion-icon name="eye-outline" slot="start"></ion-icon>
+        <ion-label>Live Preview</ion-label>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button expand="block" class="generate-solid-emerald-btn" (click)="onGenerate()">
+        <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+        <ion-label>Generate PDF Document</ion-label>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</form>

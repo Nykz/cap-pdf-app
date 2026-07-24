@@ -1,0 +1,57 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding-horizontal">
+  <ion-grid class="ion-no-padding">
+    <!-- Main Segment Bar -->
+    <ion-row class="ion-justify-content-center segment-row">
+      <ion-col size="12" size-md="8">
+        <ion-segment
+          [value]="activeTab()"
+          (ionChange)="onTabChange($event)"
+          mode="ios"
+          class="segment-bar"
+        >
+          <ion-segment-button value="builder">
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-label class="segment-label">Studio</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button value="url-to-pdf">
+            <ion-icon name="globe-outline"></ion-icon>
+            <ion-label class="segment-label">URL to PDF</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button value="vault">
+            <ion-icon name="wallet-outline"></ion-icon>
+            <ion-label class="segment-label">
+              Vault
+              <ion-badge class="vault-badge">
+                {{ historyService.records().length }}
+              </ion-badge>
+            </ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+
+    <!-- Tab Stage -->
+    @if (activeTab() === 'builder') {
+      <app-template-picker
+        [selectedTemplate]="selectedTemplate()"
+        (templateSelected)="onTemplateSelect($event)"
+      ></app-template-picker>
+
+      <app-document-form
+        [activeTemplate]="selectedTemplate()"
+        (previewRequested)="openLivePreview($event)"
+        (generateRequested)="generatePdfDocument($event)"
+      ></app-document-form>
+    } @else if (activeTab() === 'url-to-pdf') {
+      <app-url-to-pdf></app-url-to-pdf>
+    } @else {
+      <app-vault
+        (createNewRequested)="switchToBuilder()"
+      ></app-vault>
+    }
+  </ion-grid>
+</ion-content>

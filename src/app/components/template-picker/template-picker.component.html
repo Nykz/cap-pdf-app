@@ -1,0 +1,39 @@
+<ion-item lines="none" class="ion-no-padding ion-margin-bottom section-header-item">
+  <ion-label class="ion-no-margin">
+    <ion-text color="light"><h3 class="ion-no-margin section-title">Choose Template</h3></ion-text>
+    <ion-text color="medium"><p class="ion-no-margin section-subtitle">Select a document preset to customize and generate.</p></ion-text>
+  </ion-label>
+</ion-item>
+
+<ion-grid class="ion-no-padding">
+  <ion-row>
+    @for (tmpl of templates; track tmpl.id) {
+      <ion-col size="6" size-md="3">
+        <ion-card
+          [class.selected]="selectedTemplate() === tmpl.id"
+          [class]="'template-card card-' + tmpl.id"
+          (click)="selectTemplate(tmpl.id)"
+          class="ion-no-margin"
+        >
+          <ion-card-content>
+            <ion-item lines="none" class="ion-no-padding ion-margin-bottom card-top-item">
+              <ion-icon [name]="tmpl.icon" slot="start" class="template-card-icon"></ion-icon>
+
+              <ion-chip slot="end" class="type-chip" [class]="tmpl.id" [class.selected-chip]="selectedTemplate() === tmpl.id">
+                <ion-label class="ion-text-uppercase">{{ tmpl.badge }}</ion-label>
+                @if (selectedTemplate() === tmpl.id) {
+                  <ion-icon name="checkmark-circle"></ion-icon>
+                }
+              </ion-chip>
+            </ion-item>
+
+            <ion-label class="card-text-label ion-no-margin">
+              <ion-text color="light"><h4 class="ion-no-margin card-title">{{ tmpl.name }}</h4></ion-text>
+              <ion-text color="medium"><p class="ion-no-margin card-description">{{ tmpl.description }}</p></ion-text>
+            </ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    }
+  </ion-row>
+</ion-grid>
