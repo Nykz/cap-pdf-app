@@ -1,6 +1,6 @@
 # PDFStudio: Premium Capacitor PDF Creator & Vault Suite
 
-PDFStudio is a high-fidelity cross-platform Ionic/Angular application designed to create, preview, manage, and persist beautiful PDF documents. Built with **Ionic 8**, **Angular 19**, and the **Capawesome Capacitor PDF Suite**, it provides a sleek, dark-themed experience matching professional native document utility tools.
+PDFStudio is a high-fidelity cross-platform Ionic/Angular application designed to create, preview, manage, and persist beautiful PDF documents. Built with **Ionic 8**, **Angular 20**, and the **Capawesome Capacitor PDF Suite**, it provides a sleek, dark-themed experience matching professional native document utility tools.
 
 ---
 
