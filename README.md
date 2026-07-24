@@ -27,12 +27,26 @@ PDFStudio is a high-fidelity cross-platform Ionic/Angular application designed t
       <sub><b>Invoice PDF Preview</b></sub>
     </td>
     <td width="33%" align="center">
-      <img src="screens/08_document_vault.png" width="90%" alt="Document Vault" /><br />
-      <sub><b>Document Vault</b></sub>
+      <img src="screens/10_certificate_preview.png" width="90%" alt="Certificate Preview" /><br />
+      <sub><b>Certificate PDF Preview</b></sub>
     </td>
     <td width="33%" align="center">
       <img src="screens/09_receipt_preview.png" width="90%" alt="Receipt Preview" /><br />
       <sub><b>Receipt PDF Preview</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" align="center">
+      <img src="screens/08_document_vault.png" width="90%" alt="Document Vault" /><br />
+      <sub><b>Document Vault</b></sub>
+    </td>
+    <td width="33%" align="center">
+      <img src="screens/02_page_setup.png" width="90%" alt="Page Setup" /><br />
+      <sub><b>Document Page Setup</b></sub>
+    </td>
+    <td width="33%" align="center">
+      <img src="screens/07_empty_vault.png" width="90%" alt="Empty Vault" /><br />
+      <sub><b>Empty Vault State</b></sub>
     </td>
   </tr>
 </table>
